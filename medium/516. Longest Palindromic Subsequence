@@ -1,0 +1,43 @@
+def longestPalindromeSubseq( s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        current = ""
+        lst_palindrome = []
+        index = 0
+        length = len(s)
+        current_subsequence = ""
+        copy = s
+        current_index = 0 
+        current_length = length
+        actual_length = length
+        while length :
+            while current_length:
+                try:
+                    current+=s[current_index]
+                    if current == current[::-1]:
+                        lst_palindrome.append(current)
+                       
+                if index != current_index or index == 0 :
+                    current_subsequence+=copy[current_index]
+
+                    if current_subsequence == current_subsequence[::-1]:
+                        if current_subsequence not in lst_palindrome:
+                            
+                            lst_palindrome.append(current_subsequence)
+                current_length-=1
+                    
+                current_index +=1
+            current = ""
+            current_index = 0
+            current_subsequence = ""
+            index+=1
+            s = s[1:]
+            length-=1
+        if not lst_palindrome :
+            return ""
+        else:
+            return max(lst_palindrome , key = len)
+     
+print(longestPalindromeSubseq("bbbab"))
